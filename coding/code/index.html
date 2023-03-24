@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="../../lib/css/common.css">
-	<link rel="stylesheet" type="text/css" href="./css/game.css">
-	<title>바닐라자바스크립트로 게임만들기</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>바닐라자바스크립트로 만드는 게임</title>
+	<link rel="stylesheet" type="text/css" href="/lib/css/common.css">
+	<link rel="stylesheet" type="text/css" href="/coding/code/css/game.css">
 </head>
 <body>
 	<div class="game_app">
@@ -13,11 +15,24 @@
 			<div class="hero_box">
 				<div class="hero"></div>
 			</div>
+			<!-- <div class="monster_box">
+				<div class="monster"></div>
+			</div> -->
+		</div>
+		<div class="game_info">
+			<div class="hero_state">
+				<figure class="hero_img">
+					<img src="/lib/images/ninja_profile.png" alt="">
+				</figure>
+				<div class="state_box">
+					<div class="hp">
+						<span></span>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-
 	<script type="text/javascript" src="./js/game.js" charset="utf-8"></script>
 	<script type="text/javascript" src="./js/class.js" charset="utf-8"></script>
 </body>
-
 </html>

@@ -1,43 +1,31 @@
 /* 코드를 작성하세요 */
-.game_app{
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-}
-.game_app .game{
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  z-index: 10;
-  width: 70000px;
-  height: 100%;
-  background-image: url('/lib/images/bg_bottom.png');
-  background-repeat: repeat-x;
-  background-size: auto 100%;
-}
-.hero_box{
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  z-index: 100;
-  width: 150px;
-  height: 182px;
-  will-change: transform;
-}
-.hero_box .hero{
-  height: 100%;
-  background-image: url('/lib/images/ninja_idle.png');
-  background-size: 1498px 182px; 
-  animation: hero_idle 0.7s infinite steps(10); 
-  /* 0.7초 동안 10번 움직임, 10번 움직임 기준은 키프레임으로 설정한 -3770px, 10번 나눈 -377px === 1steps */
-  /* -377px * 10 */
-}
+.game_app{ overflow: hidden; position: relative; height: 100vh; min-width: 1280px; }
+.game_app .game{ z-index: 10; position: absolute; width: 70000px; height: 100%; left: 0; bottom: 0; background-image: url('/lib/images/bg_bottom.png'); background-repeat: repeat-x; background-size: auto 100%; }
+.hero_box{ z-index: 100; position: fixed; width: 150px; height: 182px; left: 0; bottom: 0; will-change: transform; }
+.hero_box .hero{ height: 100%; background-image: url('/lib/images/ninja_idle.png'); background-size: 1498px 182px; animation: hero_idle 0.7s infinite steps(10); /* 0.7초 동안 10번 움직임, 10번 움직임 기준은 키프레임으로 설정한 -3770px, 10번 나눈 -377px === 1steps */ /* -377px * 10 */ }
 .hero_box .hero.flip{transform: rotateY(180deg);}
-.hero_box .hero.run, .hero_box .hero.run.attack{background-image: url('/lib/images/ninja_run.png'); background-size: 1498px 182px; animation: hero_run 0.7s infinite steps(10); height: 100%;}
+.hero_box .hero.run, .hero_box .hero.run.attack{ height: 100%;background-image: url('/lib/images/ninja_run.png'); background-size: 1498px 182px; animation: hero_run 0.7s infinite steps(10);}
 .hero_box .hero.attack{height: 100%;background-image: url('/lib/images/ninja_attack.png'); background-size: 1498px 182px; animation: hero_attack 0.7s 1 steps(10); }
 .hero_box .hero.jump{height:100%;background-image:url('/lib/images/ninja_jump.png');background-repeat:no-repeat;background-size:cover;animation:hero_jump 0.5s}
-.hero_bullet{position: absolute;left: 0;bottom: 0;z-index: 90;width: 120px;height: 24px;background-image: url('/lib/images/hero_bullet.png');background-repeat: no-repeat;background-size: cover; will-change: transform;}
-.game_app .sky{position: absolute;left: 0;bottom: 0;z-index: 1;width: 100%;height: 100%;background-image: url('/lib/images/bg_top.png'); background-repeat: repeat-x;background-size: auto 100%;will-change: transform;}
+.hero_box .hero.crash{background-image: url('/lib/images/ninja_crash.png');background-size: 299px 182px;animation: hero_crash 0.4s 1 steps(2);}
+.hero_box .hero.dead{background-image: url('/lib/images/ninja_dead.png');background-size: 150px 182px;animation: none;transform: rotate(90deg);}
+.hero_bullet{z-index: 90;position: absolute;width: 120px;height: 24px;left: 0;bottom: 0;background-image: url('/lib/images/hero_bullet.png');background-repeat: no-repeat;background-size: cover; will-change: transform;}
+.game_app .sky{z-index: 1;position: absolute;width: 100%;height: 100%;left: 0;bottom: 0;background-image: url('/lib/images/bg_top.png'); background-repeat: repeat-x;background-size: auto 100%;will-change: transform;}
+/* will-change속성 : css로 변화될 엘리먼트속성값을 브라우저에 미리 알려줌!! 움직임 부드럽게 구현 가능하지만 남발하면 성능 이슈 발생  */
+.monster_box { z-index: 90;position: absolute; width: 280px; height: 294px; left: 700px; bottom: 0px; will-change: transform;}
+.monster_box .monster {height: 100%; background-image: url('/lib/images/monster/monster_green_run.png'); background-size: 2242px 294px; animation: monster_run 1s infinite steps(8);}
+.monster_box .hp {position: absolute; width: 100%; height: 10px; border:2px solid #000; left:0; top:0; transform: translateY(-100%);}
+.monster_box .hp span {display: block; width: 100%; height: 100%; background: red; transition: width .3s linear;}
+.monster_box.remove {opacity: 0; transition: opacity .2s;}
+.game_info{z-index:20;position:fixed;width:100%;height:150px;left:0;top:0;}
+.game_info .hero_state{width:300px;height:100%;padding:10px;}
+.game_info .hero_state .hero_img{float:left;width:20%;}
+.game_info .hero_state .state_box{float:left;width:80%;height:100%;padding-top:10px;}
+.game_info .hero_state .state_box .hp{width:100%;height:10px;border: 1px solid #000;}
+.game_info .hero_state .state_box .hp span{display:block;width:100%;height:100%;background-color: red; transition: width .3s linear;}
+
+
+
 
 /* 애니메이션 키프레임 */
 @keyframes hero_idle {
@@ -56,6 +44,14 @@
   from{transform: translateY(0);}
   to{transform: translateY(-30%);}
 }
+@keyframes hero_crash{
+  from{background-position-x: 0;}
+  to{background-position-x: -299;}
+}
 /* 
 캐릭터가 이동하도록 만들기 
 포인트 1. 히어로가 이동할 거리 2.히어로의 스피드 */
+@keyframes monster_run{
+	from {background-position-x: 0px;}
+	to {background-position-x: -2242px;}
+}
